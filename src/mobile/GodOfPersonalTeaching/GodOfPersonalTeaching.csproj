@@ -11,7 +11,21 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1451" />
+    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1687" />
     <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
+    <PackageReference Include="Acr.UserDialogs" Version="7.1.0.466" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Services\" />
+    <Folder Include="Behaviors\" />
+    <Folder Include="Effects\" />
+    <Folder Include="TinyIoC\" />
+    <Folder Include="Models\" />
+    <Folder Include="ViewModels\" />
+    <Folder Include="Views\" />
+    <Folder Include="Services\Dependency\" />
+    <Folder Include="Services\Dialog\" />
+    <Folder Include="Services\Navigation\" />
+    <Folder Include="ViewModels\Base\" />
   </ItemGroup>
 </Project>
