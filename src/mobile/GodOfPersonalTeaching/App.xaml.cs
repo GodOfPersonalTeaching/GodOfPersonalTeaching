@@ -9,10 +9,7 @@ namespace GodOfPersonalTeaching
         public App()
         {
             InitializeComponent();
-
             MainPage = new MainPage();
-
-            //test커밋
         }
 
         protected override void OnStart()
