@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "tA3nzk1mLHW9HfWGD2yPj6liau168A+PY1vmrrWFS+DIMs27j22DbdlRhmUZK23P+AGiyIP7B2q06nfvW9IdzA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\kello\\source\\repos\\GodOfPersonalTeaching\\src\\webapp\\ScheduleAPI\\ScheduleAPI.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\kello\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.10.9\\microsoft.visualstudio.azure.containers.tools.targets.1.10.9.nupkg.sha512"
+  ],
+  "logs": []
+}

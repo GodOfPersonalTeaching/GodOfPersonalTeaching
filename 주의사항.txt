@@ -1,0 +1,8 @@
+mvvm navigationService를 이용하기 위해서는
+각 뷰마다 
+
+xmlns:viewModelBase="clr-namespace:GodOfPersonalTeaching.ViewModels.Base;assembly=GodOfPersonalTeaching"
+viewModelBase:ViewModelLocator.AutoWireViewModel="true"
+
+
+위 내용이 필수다.

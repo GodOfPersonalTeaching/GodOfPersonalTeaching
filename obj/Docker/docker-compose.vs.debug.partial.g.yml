@@ -1,0 +1,57 @@
+version: '3.4'
+
+services:
+  notificationapi:
+    image: notificationapi:dev
+    container_name: NotificationAPI
+    build:
+      target: base
+      labels:
+        com.microsoft.created-by: "visual-studio"
+        com.microsoft.visual-studio.project-name: "NotificationAPI"
+    environment:
+      - DOTNET_USE_POLLING_FILE_WATCHER=1
+      - ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS=true
+      #- NUGET_FALLBACK_PACKAGES=$container_paths_to_fallback_packages_notificationapi$
+    volumes:
+      - C:\Users\kello\source\repos\GodOfPersonalTeaching\src\webapp\NotificationAPI:/app
+      - C:\Users\kello\source\repos\GodOfPersonalTeaching:/src
+      - C:\Users\kello\vsdbg\vs2017u5:/remote_debugger:rw
+#$nuget_volume_mapping_notificationapi$
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+
+    entrypoint: tail -f /dev/null
+    labels:
+      com.microsoft.visualstudio.debuggee.program: "dotnet"
+      #com.microsoft.visualstudio.debuggee.arguments: " $debuggee_arguments_probing_paths_notificationapi$ \"/app/bin/Debug/netcoreapp3.1/NotificationAPI.dll\""
+      com.microsoft.visualstudio.debuggee.workingdirectory: "/app"
+      com.microsoft.visualstudio.debuggee.killprogram: "/bin/sh -c \"if PID=$$(pidof dotnet); then kill $$PID; fi\""
+    tty: true
+  scheduleapi:
+    image: scheduleapi:dev
+    container_name: ScheduleAPI
+    build:
+      target: base
+      labels:
+        com.microsoft.created-by: "visual-studio"
+        com.microsoft.visual-studio.project-name: "ScheduleAPI"
+    environment:
+      - DOTNET_USE_POLLING_FILE_WATCHER=1
+      - ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS=true
+      #- NUGET_FALLBACK_PACKAGES=$container_paths_to_fallback_packages_scheduleapi$
+    volumes:
+      - C:\Users\kello\source\repos\GodOfPersonalTeaching\src\webapp\ScheduleAPI:/app
+      - C:\Users\kello\source\repos\GodOfPersonalTeaching:/src
+      - C:\Users\kello\vsdbg\vs2017u5:/remote_debugger:rw
+#$nuget_volume_mapping_scheduleapi$
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+
+    entrypoint: tail -f /dev/null
+    labels:
+      com.microsoft.visualstudio.debuggee.program: "dotnet"
+      #com.microsoft.visualstudio.debuggee.arguments: " $debuggee_arguments_probing_paths_scheduleapi$ \"/app/bin/Debug/netcoreapp3.1/ScheduleAPI.dll\""
+      com.microsoft.visualstudio.debuggee.workingdirectory: "/app"
+      com.microsoft.visualstudio.debuggee.killprogram: "/bin/sh -c \"if PID=$$(pidof dotnet); then kill $$PID; fi\""
+    tty: true

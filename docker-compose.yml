@@ -1,0 +1,27 @@
+version: '3.4'
+
+services:
+  envoygateway:
+      container_name: envoygateway
+      image: envoygateway:latest
+      build:
+        context: .
+        dockerfile: Envoy/Dockerfile
+      ports:
+        - "9901:9901"
+        - "10000:10000"
+      volumes:
+        - ./Envoy/envoy.yaml:/etc/envoy/envoy.yaml
+
+  notificationapi:
+    image: ${DOCKER_REGISTRY-}notificationapi
+    build:
+      context: .
+      dockerfile: src/webapp/NotificationAPI/Dockerfile
+
+  scheduleapi:
+    image: ${DOCKER_REGISTRY-}scheduleapi
+    build:
+      context: .
+      dockerfile: src/webapp/ScheduleAPI/Dockerfile
+

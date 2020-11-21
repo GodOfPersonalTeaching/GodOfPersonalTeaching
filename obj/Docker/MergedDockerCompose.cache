@@ -1,0 +1,45 @@
+services:
+  envoygateway:
+    build:
+      context: C:\Users\kello\source\repos\GodOfPersonalTeaching
+      dockerfile: Envoy/Dockerfile
+    container_name: envoygateway
+    image: envoygateway:latest
+    ports:
+    - published: 9901
+      target: 9901
+    - published: 10000
+      target: 10000
+    volumes:
+    - C:\Users\kello\source\repos\GodOfPersonalTeaching\Envoy\envoy.yaml:/etc/envoy/envoy.yaml:rw
+  notificationapi:
+    build:
+      context: C:\Users\kello\source\repos\GodOfPersonalTeaching
+      dockerfile: src/webapp/NotificationAPI/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: https://+:443;http://+:80
+    image: notificationapi
+    ports:
+    - published: 8080
+      target: 80
+    - published: 8081
+      target: 443
+    volumes:
+    - C:\Users\kello\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\kello\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
+  scheduleapi:
+    build:
+      context: C:\Users\kello\source\repos\GodOfPersonalTeaching
+      dockerfile: src/webapp/ScheduleAPI/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: https://+:443;http://+:80
+    image: scheduleapi
+    ports:
+    - target: 80
+    - target: 443
+    volumes:
+    - C:\Users\kello\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\kello\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
+version: '3.4'

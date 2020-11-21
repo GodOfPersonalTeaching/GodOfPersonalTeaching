@@ -1,0 +1,89 @@
+services:
+  envoygateway:
+    build:
+      context: C:\Users\kello\source\repos\GodOfPersonalTeaching
+      dockerfile: Envoy/Dockerfile
+    container_name: envoygateway
+    image: envoygateway:latest
+    ports:
+    - published: 9901
+      target: 9901
+    - published: 10000
+      target: 10000
+    volumes:
+    - C:\Users\kello\source\repos\GodOfPersonalTeaching\Envoy\envoy.yaml:/etc/envoy/envoy.yaml:rw
+  notificationapi:
+    build:
+      context: C:\Users\kello\source\repos\GodOfPersonalTeaching
+      dockerfile: src/webapp/NotificationAPI/Dockerfile
+      labels:
+        com.microsoft.created-by: visual-studio
+        com.microsoft.visual-studio.project-name: NotificationAPI
+      target: base
+    container_name: NotificationAPI
+    entrypoint: tail -f /dev/null
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS: "true"
+      ASPNETCORE_URLS: https://+:443;http://+:80
+      DOTNET_USE_POLLING_FILE_WATCHER: '1'
+      NUGET_FALLBACK_PACKAGES: /root/.nuget/fallbackpackages
+    image: notificationapi:dev
+    labels:
+      com.microsoft.visualstudio.debuggee.arguments: ' --additionalProbingPath /root/.nuget/packages
+        --additionalProbingPath /root/.nuget/fallbackpackages  "/app/bin/Debug/netcoreapp3.1/NotificationAPI.dll"'
+      com.microsoft.visualstudio.debuggee.killprogram: /bin/sh -c "if PID=$$(pidof
+        dotnet); then kill $$PID; fi"
+      com.microsoft.visualstudio.debuggee.program: dotnet
+      com.microsoft.visualstudio.debuggee.workingdirectory: /app
+    ports:
+    - published: 8080
+      target: 80
+    - published: 8081
+      target: 443
+    tty: true
+    volumes:
+    - C:\Users\kello\source\repos\GodOfPersonalTeaching\src\webapp\NotificationAPI:/app:rw
+    - C:\Users\kello\vsdbg\vs2017u5:/remote_debugger:rw
+    - C:\Users\kello\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\kello\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
+    - C:\Microsoft\Xamarin\NuGet:/root/.nuget/fallbackpackages:ro
+    - C:\Users\kello\.nuget\packages:/root/.nuget/packages:ro
+    - C:\Users\kello\source\repos\GodOfPersonalTeaching:/src:rw
+  scheduleapi:
+    build:
+      context: C:\Users\kello\source\repos\GodOfPersonalTeaching
+      dockerfile: src/webapp/ScheduleAPI/Dockerfile
+      labels:
+        com.microsoft.created-by: visual-studio
+        com.microsoft.visual-studio.project-name: ScheduleAPI
+      target: base
+    container_name: ScheduleAPI
+    entrypoint: tail -f /dev/null
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS: "true"
+      ASPNETCORE_URLS: https://+:443;http://+:80
+      DOTNET_USE_POLLING_FILE_WATCHER: '1'
+      NUGET_FALLBACK_PACKAGES: /root/.nuget/fallbackpackages
+    image: scheduleapi:dev
+    labels:
+      com.microsoft.visualstudio.debuggee.arguments: ' --additionalProbingPath /root/.nuget/packages
+        --additionalProbingPath /root/.nuget/fallbackpackages  "/app/bin/Debug/netcoreapp3.1/ScheduleAPI.dll"'
+      com.microsoft.visualstudio.debuggee.killprogram: /bin/sh -c "if PID=$$(pidof
+        dotnet); then kill $$PID; fi"
+      com.microsoft.visualstudio.debuggee.program: dotnet
+      com.microsoft.visualstudio.debuggee.workingdirectory: /app
+    ports:
+    - target: 80
+    - target: 443
+    tty: true
+    volumes:
+    - C:\Users\kello\source\repos\GodOfPersonalTeaching\src\webapp\ScheduleAPI:/app:rw
+    - C:\Users\kello\vsdbg\vs2017u5:/remote_debugger:rw
+    - C:\Users\kello\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\kello\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
+    - C:\Microsoft\Xamarin\NuGet:/root/.nuget/fallbackpackages:ro
+    - C:\Users\kello\.nuget\packages:/root/.nuget/packages:ro
+    - C:\Users\kello\source\repos\GodOfPersonalTeaching:/src:rw
+version: '3.4'
